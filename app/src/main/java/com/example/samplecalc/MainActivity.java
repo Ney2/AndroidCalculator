@@ -1,16 +1,34 @@
 package com.example.samplecalc;
 
-import android.support.v7.app.AppCompatActivity;
-import org.mariuszgromada.math.mxparser.*;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.EditText;
-public class MainActivity extends AppCompatActivity {
-    private EditText display;
+import android.widget.Toast;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+
+
+
+import java.util.ArrayList;
+
+
+public class MainActivity extends AppCompatActivity
+{
+
+    public EditText display;
+
+    String workings = "";
+    String formula = "";
+    String tempFormula = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         display = findViewById(R.id.input);
@@ -25,116 +43,212 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateText(String values){
+    private void setWorkings(String givenValue)
+    {
+
         String oldstr = display.getText().toString();
         int cursorpt = display.getSelectionStart();
         String leftstr = oldstr.substring(0, cursorpt);
         String  rightstr = oldstr.substring(cursorpt);
         if (getString(R.string.display).equals(display.getText().toString())){
-            display.setText(values);
+            display.setText(givenValue);
             display.setSelection(cursorpt + 1);
         }
         else {
-            display.setText(String.format("%s%s%s", leftstr, values, rightstr));
+            display.setText(String.format("%s%s%s", leftstr, givenValue, rightstr));
             display.setSelection(cursorpt + 1);
         }
     }
 
-    public void zerobtn(View view) {
-        updateText("0");
-    }
-    public void onebtn(View view) {
-        updateText("1");
-    }
-    public void twobtn(View view) {
-        updateText("2");
-    }
-    public void threebtn(View view) {
-        updateText("3");
-    }
-    public void fourbtn(View view) {
-        updateText("4");
-    }
-    public void fivebtn(View view) {
-        updateText("5");
-    }
-    public void sixbtn(View view) {
-        updateText("6");
-    }
-    public void sevenbtn(View view) {
-        updateText("7");
-    }
-    public void eightbtn(View view) {
-        updateText("8");
-    }
-    public void ninebtn(View view) {
-        updateText("9");
-    }
-    public void addbtn(View view) {
-        updateText("+");
-    }
-    public void subbtn(View view) {
-        updateText("-");
-    }
-    public void mulbtn(View view) {
-        updateText("x");
-    }
-    public void divbtn(View view) {
-        updateText("/");
-    }
-    public void expbtn(View view) {
-        updateText("^");
-    }
-    public void parentbtn(View view) {
-        int cursorPos = display.getSelectionStart();
-        int openPar = 0;
-        int closePar = 0;
-        int textlen = display.getText().length();
 
-        for (int i=0; i<cursorPos; i++){
-            if(display.getText().toString().substring(i, i+1).equals("(")) {
-                openPar +=1;
-            }
-            if(display.getText().toString().substring(i, i+1).equals(")")) {
-                closePar +=1;
-            }
+    public void equalsOnClick(View view)
+    {
+        Double result = null;
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");
+        checkForPowerOf();
+
+        try {
+            result = (double)engine.eval(formula);
+        } catch (ScriptException e)
+        {
+            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
         }
 
-        if(openPar == closePar || display.getText().toString().substring(textlen-1, textlen).equals("(")) {
-            updateText("(");
-        }
-        else if(closePar < openPar && !display.getText().toString().substring(textlen-1, textlen).equals("(")) {
-            updateText(")");
+        if(result != null)
+            display.setText(String.valueOf(result.doubleValue()));
+
+    }
+
+    private void checkForPowerOf()
+    {
+        ArrayList<Integer> indexOfPowers = new ArrayList<>();
+        for(int i = 0; i < display.length(); i++)
+        {
+            if (workings.charAt(i) == '^')
+                indexOfPowers.add(i);
         }
 
-        display.setSelection(cursorPos + 1);
+        formula = workings;
+        tempFormula = workings;
+        for(Integer index: indexOfPowers)
+        {
+            changeFormula(index);
+        }
+        formula = tempFormula;
     }
-    public void ptbtn(View view) {
-        updateText(".");
+
+    private void changeFormula(Integer index)
+    {
+        String numberLeft = "";
+        String numberRight = "";
+
+        for(int i = index + 1; i< workings.length(); i++)
+        {
+            if(isNumeric(workings.charAt(i)))
+                numberRight = numberRight + workings.charAt(i);
+            else
+                break;
+        }
+
+        for(int i = index - 1; i >= 0; i--)
+        {
+            if(isNumeric(workings.charAt(i)))
+                numberLeft = numberLeft + workings.charAt(i);
+            else
+                break;
+        }
+
+        String original = numberLeft + "^" + numberRight;
+        String changed = "Math.pow("+numberLeft+","+numberRight+")";
+        tempFormula = tempFormula.replace(original,changed);
     }
-    public void equalsbtn(View view) {
-        String userInput = display.getText().toString();
-        userInput = userInput.replaceAll("x", "*");
-        Expression exp = new Expression(userInput);
-        String result = String.valueOf(exp.calculate());
-        display.setText(result);
-        display.setSelection(result.length());
+
+    private boolean isNumeric(char c)
+    {
+        if((c <= '9' && c >= '0') || c == '.')
+            return true;
+
+        return false;
     }
-    public void clearbtn(View view) {
+
+
+    public void clearOnClick(View view)
+    {
         display.setText("");
+        workings = "";
+        display.setText("");
+        leftBracket = true;
     }
-    public void plusMinusbtn(View view) {
-        updateText("-");
-    }
-    public void backspace(View view) {
-       int cursorPos = display.getSelectionStart();
-       int textLen = display.getText().length();
 
-       if(cursorPos != 0 && textLen != 0) {
-           SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
-           selection.replace(cursorPos-1, cursorPos, "");
-           display.setText(selection);
-           display.setSelection(cursorPos - 1);
-       }
+    boolean leftBracket = true;
+
+    public void bracketsOnClick(View view)
+    {
+        if(leftBracket)
+        {
+            setWorkings("(");
+            leftBracket = false;
+        }
+        else
+        {
+            setWorkings(")");
+            leftBracket = true;
+        }
+    }
+
+    public void powerOfOnClick(View view)
+    {
+        setWorkings("^");
+    }
+
+    public void divisionOnClick(View view)
+    {
+        setWorkings("/");
+    }
+
+    public void sevenOnClick(View view)
+    {
+        setWorkings("7");
+    }
+
+    public void eightOnClick(View view)
+    {
+        setWorkings("8");
+    }
+
+    public void nineOnClick(View view)
+    {
+        setWorkings("9");
+    }
+
+    public void timesOnClick(View view)
+    {
+        setWorkings("*");
+    }
+
+    public void fourOnClick(View view)
+    {
+        setWorkings("4");
+    }
+
+    public void fiveOnClick(View view)
+    {
+        setWorkings("5");
+    }
+
+    public void sixOnClick(View view)
+    {
+        setWorkings("6");
+    }
+
+    public void minusOnClick(View view)
+    {
+        setWorkings("-");
+    }
+
+    public void oneOnClick(View view)
+    {
+        setWorkings("1");
+    }
+
+    public void twoOnClick(View view)
+    {
+        setWorkings("2");
+    }
+
+    public void threeOnClick(View view)
+    {
+        setWorkings("3");
+    }
+
+    public void plusOnClick(View view)
+    {
+        setWorkings("+");
+    }
+
+    public void decimalOnClick(View view)
+    {
+        setWorkings(".");
+    }
+
+    public void zeroOnClick(View view)
+    {
+        setWorkings("0");
+    }
+
+    public void negativeOnclick(View view) {
+        setWorkings("-");
+    }
+
+    public void backspace(View view) {
+        int cursorPos = display.getSelectionStart();
+        int textLen = display.getText().length();
+
+        if(cursorPos != 0 && textLen != 0) {
+            SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
+            selection.replace(cursorPos-1, cursorPos, "");
+            display.setText(selection);
+            display.setSelection(cursorPos - 1);
+        }
     }
 }

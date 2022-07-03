@@ -20,7 +20,8 @@
             android:textAlignment="textEnd"
             android:autofillHints="false"
             android:inputType="none"
-            tools:ignore="LabelFor" android:id="@+id/input"/>
+            tools:ignore="LabelFor"
+            android:id="@+id/input"/>
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
                     android:layout_margin="5dp"
                     android:textSize="24sp"
                     android:backgroundTint="#DD2C00"
-                    android:onClick="clearbtn"/>
+                    android:onClick="clearOnClick"/>
             <Button
                     android:text="@string/parent"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -53,7 +54,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="parentbtn"/>
+                    android:onClick="bracketsOnClick"/>
             <Button
                     android:text="@string/exp"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -65,7 +66,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="expbtn"/>
+                    android:onClick="powerOfOnClick"/>
             <Button
                     android:text="@string/div"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -77,7 +78,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="divbtn"/>
+                    android:onClick="divisionOnClick"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <Button
@@ -91,7 +92,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="sevenbtn"/>
+                    android:onClick="sevenOnClick"/>
             <Button
                     android:text="@string/eight"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -103,7 +104,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="eightbtn"/>
+                    android:onClick="eightOnClick"/>
             <Button
                     android:text="@string/nine"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -115,7 +116,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="ninebtn"/>
+                    android:onClick="nineOnClick"/>
             <Button
                     android:text="@string/mul"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -127,7 +128,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="mulbtn"/>
+                    android:onClick="timesOnClick"/>
         </TableRow>
         <TableRow android:layout_width="342dp" android:layout_height="wrap_content">
             <Button
@@ -141,7 +142,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="fourbtn"/>
+                    android:onClick="fourOnClick"/>
             <Button
                     android:text="@string/five"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -153,7 +154,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="fivebtn"/>
+                    android:onClick="fiveOnClick"/>
             <Button
                     android:text="@string/six"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -165,7 +166,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="sixbtn"/>
+                    android:onClick="sixOnClick"/>
             <Button
                     android:text="@string/add"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -177,7 +178,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="subbtn"/>
+                    android:onClick="plusOnClick"/>
         </TableRow>
         <TableRow android:layout_width="wrap_content" android:layout_height="36dp">
             <Button
@@ -191,7 +192,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="onebtn"/>
+                    android:onClick="oneOnClick"/>
             <Button
                     android:text="@string/two"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -203,7 +204,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="twobtn"/>
+                    android:onClick="twoOnClick"/>
             <Button
                     android:text="@string/three"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -215,7 +216,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="threebtn"/>
+                    android:onClick="threeOnClick"/>
             <Button
                     android:text="@string/sub"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -227,7 +228,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="subbtn"/>
+                    android:onClick="minusOnClick"/>
         </TableRow>
         <TableRow
                 android:layout_width="wrap_content"
@@ -243,7 +244,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="plusMinusbtn"/>
+                    android:onClick="negativeOnclick"/>
             <Button
                     android:text="@string/zero"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -255,7 +256,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="zerobtn"/>
+                    android:onClick="zeroOnClick"/>
             <Button
                     android:text="@string/point"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -267,7 +268,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:onClick="ptbtn"/>
+                    android:onClick="decimalOnClick"/>
             <Button
                     android:text="@string/equals"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -280,7 +281,7 @@
                     android:layout_margin="5dp"
                     android:textSize="24sp"
                     android:backgroundTint="#43A047"
-                    android:onClick="equalsbtn"/>
+                    android:onClick="equalsOnClick"/>
         </TableRow>
     </TableLayout>
     <ImageButton
@@ -291,6 +292,7 @@
             android:id="@+id/button21"
             android:background="@drawable/circle"
             android:contentDescription="@string/backspace"
+            android:onClick="backspace"
             app:srcCompat="@drawable/backspace"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
