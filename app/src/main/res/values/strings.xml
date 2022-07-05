@@ -23,5 +23,5 @@
     <string name="plusMinus">+/-</string>
 
     <string name="backspace"> </string>
-    <string name="display">Enter a Number </string>
+    <string name="workingsTV"></string>
 </resources>

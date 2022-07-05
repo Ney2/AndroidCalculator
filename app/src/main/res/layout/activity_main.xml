@@ -5,23 +5,40 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
-    <EditText
+        tools:context=".MainActivity"
+        android:background="@color/black">
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/display"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginTop="30dp"
-            android:textSize="36sp"
-            android:textAlignment="textEnd"
-            android:autofillHints="false"
-            android:inputType="none"
-            tools:ignore="LabelFor"
-            android:id="@+id/input"/>
+            android:layout_height="0dp"
+            android:orientation="vertical"
+
+            android:layout_weight="3" tools:ignore="MissingConstraints">
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingRight="30dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:text=""
+                android:layout_gravity="end"
+                android:textAlignment="textEnd"
+                android:textSize="30sp"
+                android:id="@+id/workingsTextView"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:paddingRight="30dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:text=""
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:textSize="45sp"
+                android:id="@+id/resultTextView"/>
+
+    </LinearLayout>
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +58,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:backgroundTint="#DD2C00"
+                    android:backgroundTint="#505050"
                     android:onClick="clearOnClick"/>
             <Button
                     android:text="@string/parent"
@@ -53,6 +70,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint="#505050"
                     android:textSize="24sp"
                     android:onClick="bracketsOnClick"/>
             <Button
@@ -65,6 +83,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint="#505050"
                     android:textSize="24sp"
                     android:onClick="powerOfOnClick"/>
             <Button
@@ -77,6 +96,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint="#FF9500"
                     android:textSize="24sp"
                     android:onClick="divisionOnClick"/>
         </TableRow>
@@ -127,6 +147,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint=" #FF9500"
                     android:textSize="24sp"
                     android:onClick="timesOnClick"/>
         </TableRow>
@@ -177,6 +198,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint=" #FF9500"
                     android:textSize="24sp"
                     android:onClick="plusOnClick"/>
         </TableRow>
@@ -227,6 +249,7 @@
                     android:background="@drawable/circle"
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
+                    android:backgroundTint=" #FF9500"
                     android:textSize="24sp"
                     android:onClick="minusOnClick"/>
         </TableRow>
@@ -280,7 +303,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_margin="5dp"
                     android:textSize="24sp"
-                    android:backgroundTint="#43A047"
+                    android:backgroundTint=" #FF9500"
                     android:onClick="equalsOnClick"/>
         </TableRow>
     </TableLayout>

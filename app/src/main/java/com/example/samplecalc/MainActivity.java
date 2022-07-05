@@ -12,7 +12,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 
-
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
 {
 
-    public EditText display;
+    EditText workingsTV;
+    TextView resultsTV;
 
     String workings = "";
     String formula = "";
@@ -31,14 +32,17 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        display = findViewById(R.id.input);
-        display.setShowSoftInputOnFocus(false);
-        display.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getString(R.string.display).equals(display.getText().toString())) {
-                    display.setText("");
-                }
+        initTextViews();
+    }
+
+    private void initTextViews()
+    {
+        workingsTV = findViewById(R.id.workingsTextView);
+        resultsTV = (TextView)findViewById(R.id.resultTextView);
+        workingsTV.setShowSoftInputOnFocus(false);
+        workingsTV.setOnClickListener(view -> {
+            if (getString(R.string.workingsTV).equals(workingsTV.getText().toString())){
+                workingsTV.setText("");
             }
         });
     }
@@ -46,23 +50,25 @@ public class MainActivity extends AppCompatActivity
     private void setWorkings(String givenValue)
     {
 
-        String oldstr = display.getText().toString();
-        int cursorpt = display.getSelectionStart();
-        String leftstr = oldstr.substring(0, cursorpt);
-        String  rightstr = oldstr.substring(cursorpt);
-        if (getString(R.string.display).equals(display.getText().toString())){
-            display.setText(givenValue);
-            display.setSelection(cursorpt + 1);
+        String oldStr = workingsTV.getText().toString();
+        int cursorPos = workingsTV.getSelectionStart();
+        String leftStr = oldStr.substring(0, cursorPos);
+        String rightStr = oldStr.substring(cursorPos);
+        if (getString(R.string.workingsTV).equals(workingsTV.getText().toString())){
+            workings = workings + givenValue;
+            workingsTV.setText(workings);
+            workingsTV.setSelection(cursorPos + 1);
         }
         else {
-            display.setText(String.format("%s%s%s", leftstr, givenValue, rightstr));
-            display.setSelection(cursorpt + 1);
+            workingsTV.setText(String.format("%s%s%s",leftStr, givenValue, rightStr));
+            workingsTV.setSelection(cursorPos + 1);
         }
     }
 
 
     public void equalsOnClick(View view)
     {
+        workings = workingsTV.getText().toString();
         Double result = null;
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");
         checkForPowerOf();
@@ -75,14 +81,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(result != null)
-            display.setText(String.valueOf(result.doubleValue()));
+            resultsTV.setText(String.valueOf(result.doubleValue()));
 
     }
 
     private void checkForPowerOf()
     {
         ArrayList<Integer> indexOfPowers = new ArrayList<>();
-        for(int i = 0; i < display.length(); i++)
+        for(int i = 0; i < workings.length(); i++)
         {
             if (workings.charAt(i) == '^')
                 indexOfPowers.add(i);
@@ -134,9 +140,9 @@ public class MainActivity extends AppCompatActivity
 
     public void clearOnClick(View view)
     {
-        display.setText("");
+        workingsTV.setText("");
         workings = "";
-        display.setText("");
+        resultsTV.setText("");
         leftBracket = true;
     }
 
@@ -241,14 +247,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void backspace(View view) {
-        int cursorPos = display.getSelectionStart();
-        int textLen = display.getText().length();
+        int cursorPos = workingsTV.getSelectionStart();
+        int textLen = workingsTV.getText().length();
 
         if(cursorPos != 0 && textLen != 0) {
-            SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
+            SpannableStringBuilder selection = (SpannableStringBuilder) workingsTV.getText();
             selection.replace(cursorPos-1, cursorPos, "");
-            display.setText(selection);
-            display.setSelection(cursorPos - 1);
+            workingsTV.setText(selection);
+            workingsTV.setSelection(cursorPos - 1);
         }
     }
+
 }
